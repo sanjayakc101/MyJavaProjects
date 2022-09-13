@@ -1,0 +1,61 @@
+import java.text.DecimalFormat;
+import java.util.StringTokenizer;
+import javax.swing.JOptionPane;
+
+public class TestStatistics {
+
+		public static void main(String[] args) {
+			 String out, in="";
+			 String delim = ",";
+			  int count=0;
+			   String token="";
+			  in = JOptionPane.showInputDialog
+	          ("Enter data values separated by commas");
+			 
+			  StringTokenizer st = new StringTokenizer (in, delim);
+			  count = st.countTokens ( );
+			  double[] data = new double [count];
+			  for (int i=0; i<count; i++)
+	        {
+	           token = st.nextToken ( );
+			   token = token.trim ( );
+	           data [i] = Double.parseDouble(token);
+	        }
+			  Statistics stat=new Statistics(data);
+			  	double min = stat.findMin();
+			  	double max = stat.findMax();
+			  	double mean = stat.findMean();
+			  	double median = stat.findMedian();
+			  	double[] origData = stat.getOrigData();
+			  	double [ ] sortedData = stat.getSortedData();
+			  
+			   in = JOptionPane.showInputDialog
+	           ("Enter number of decimal places for output");
+
+			   	int placesCount = Integer.parseInt (in);
+			   	String pattern = "0.";
+			   	for (int i=0; i<placesCount; i++)
+				pattern = pattern + "0";
+			   	DecimalFormat df = new DecimalFormat ( );
+			   	df.applyPattern (pattern);
+	            out = "";
+	            out = out + "Original Data: \n";
+	            for (int i=0; i<origData.length; i++)
+	            {
+	             out = out + origData [i] + " ";
+	            }
+	            out = out + "\n";
+	            out = out + "Sorted Data: \n";
+	            for (int i=0; i<sortedData.length; i++)
+	            {
+	             out = out + sortedData [i] + " ";
+	            }
+	            out = out + "\n";
+	            out = out + "Min: " + df.format (min) + "\n";
+	            out = out + "Max: " + df.format (max) + "\n";
+	            out = out + "Mean: " + df.format (mean) + "\n";
+	            out = out + "Median: " + df.format (median) + "\n";
+
+	          JOptionPane.showMessageDialog ( null, out);
+	      }
+	  }
